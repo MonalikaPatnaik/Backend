@@ -13,13 +13,13 @@ router.get("/webtoons/:id", webtoonController.getWebtoonById);
 
 // Protected routes
 router.post(
-  "/webtoons",
+  "/add-webtoons",
   authenticateToken,
   validateWebtoon,
   webtoonController.addWebtoon
 );
 router.delete(
-  "/webtoons/:id",
+  "/delete-webtoons/:id",
   authenticateToken,
   webtoonController.deleteWebtoon
 );
@@ -43,7 +43,10 @@ router.post("/signup", async (req, res) => {
       expiresIn: "1h",
     });
 
-    res.json({ token });
+    res.json({ 
+      token, 
+      msg: 'User created successfully' 
+  });
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");
@@ -70,7 +73,10 @@ router.post("/login", async (req, res) => {
       expiresIn: "1h",
     });
 
-    res.json({ token });
+    res.json({ 
+      token, 
+      msg: 'Login successful' 
+  });
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");
